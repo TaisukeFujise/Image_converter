@@ -2,6 +2,6 @@ package imgconv
 
 import "fmt"
 
-func Do() {
+func Convert(path string, input string, output string) {
 	fmt.Println("hello")
 }
