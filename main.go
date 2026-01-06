@@ -27,7 +27,6 @@ func init() {
 func main() {
 	flag.Parse()
 	root = parseArgs(flag.Args())
-	// TODO
 	input, err = imgconv.ParseFormat(rawInput)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "error: %s\n", err)
