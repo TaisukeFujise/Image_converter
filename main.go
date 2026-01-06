@@ -1,3 +1,24 @@
+/*
+Convert converts image formats.
+It changes the format from the format specified by the -i flag
+to the format specified by the -o flag.
+
+It reports an error if a path is not given, or there are multiple paths given,
+or the files in the path do not match the input format.
+
+Usage:
+
+	convert [flags] path
+
+The flags are:
+
+	-i
+		Input file format, such as jpg, png, gif.
+		Default format is jpg.
+	-o
+		Output file format, such as jpg, png, gif.
+		Default format is png.
+*/
 package main
 
 import (

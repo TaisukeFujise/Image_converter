@@ -10,6 +10,7 @@ import (
 	"path/filepath"
 )
 
+// Convert converts a file specified by path to the specified format.
 func Convert(path string, output Format) error {
 	reader, err := os.Open(path)
 	if err != nil {
