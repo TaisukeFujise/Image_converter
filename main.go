@@ -104,7 +104,17 @@ func convertPath(root string, ops ConvertOptions) error {
 				return fmt.Errorf("%s is not a valid file", path)
 			}
 			if ops.input.Match(path) {
-				err = imgconv.Convert(path, ops.output)
+				r, err := imgconv.OpenInput(path)
+				if err != nil {
+					return err
+				}
+				defer r.Close()
+				w, err := imgconv.CreateOutput(path, ops.output)
+				if err != nil {
+					return err
+				}
+				defer w.Close()
+				err = imgconv.Convert(r, w, ops.output)
 				if err != nil {
 					return err
 				}
