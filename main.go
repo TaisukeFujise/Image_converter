@@ -58,6 +58,10 @@ func main() {
 		fmt.Fprintf(os.Stderr, "error: %s\n", err)
 		os.Exit(1)
 	}
+	if input == output {
+		fmt.Fprintf(os.Stderr, "error: input and output format must be different\n")
+		os.Exit(1)
+	}
 	err := filepath.Walk(root,
 		func(path string, info os.FileInfo, err error) error {
 			if err != nil {
@@ -66,6 +70,9 @@ func main() {
 			if info.IsDir() {
 				return nil
 			}
+			if input.Validate(path) == false {
+				return fmt.Errorf("%s is not a valid file", path)
+			}
 			if input.Match(path) {
 				err = imgconv.Convert(path, output)
 				if err != nil {
@@ -73,7 +80,7 @@ func main() {
 				}
 				return nil
 			}
-			return fmt.Errorf("%s is not a valid file", path)
+			return nil
 		})
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "error: %s\n", err)

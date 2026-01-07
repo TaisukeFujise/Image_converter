@@ -27,6 +27,19 @@ func ParseFormat(raw string) (Format, error) {
 	}
 }
 
+// Validate reports whether the file at path has the image format.
+func (f Format) Validate(path string) bool {
+	ext := filepath.Ext(path)
+	if ext == "" {
+		return false
+	}
+	_, err := ParseFormat(ext[1:])
+	if err != nil {
+		return false
+	}
+	return true
+}
+
 // Match reports whether the path matches f.
 // It returns false if the path does not have an extension.
 func (f Format) Match(path string) bool {
